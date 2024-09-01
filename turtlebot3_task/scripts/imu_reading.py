@@ -17,13 +17,16 @@ def callback(data):
     
 
     quaternion = data.orientation
+    #adding a tuple because tf.transformations.euler_from_quaternion takes data as tuples or lists.
     quaternion_tuple = (quaternion.x,quaternion.y,quaternion.z,quaternion.w) 
-    
-    degrees = tf.transformations.euler_from_quaternion(quaternion_tuple)
 
-    roll = math.degrees(degrees[0])
-    pitch = math.degrees(degrees[1])
-    yaw = math.degrees(degrees[2]) 
+    #converts IMU data from quaternions to Euler degrees.
+    radians = tf.transformations.euler_from_quaternion(quaternion_tuple)
+
+    #converts the 
+    roll = math.degrees(radians[0])
+    pitch = math.degrees(radians[1])
+    yaw = math.degrees(radians[2]) 
 
     #applying a moving average filter for the rotation axes, because there was a lot of noise.
     roll_queue.append(roll)
@@ -32,7 +35,8 @@ def callback(data):
     pitch_average = sum(pitch_queue)/len(pitch_queue)
     yaw_queue.append(yaw)
     yaw_average = sum(yaw_queue)/len(yaw_queue)
-    
+
+    #put the changes in a custom message type that can hold float32 type of roll, pitch, and yaw angles.
     message = degrees_msg()
     message.roll = roll_average
     message.pitch = pitch_average
