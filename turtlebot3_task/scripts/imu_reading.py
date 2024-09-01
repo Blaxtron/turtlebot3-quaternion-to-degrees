@@ -36,7 +36,7 @@ def callback(data):
     yaw_queue.append(yaw)
     yaw_average = sum(yaw_queue)/len(yaw_queue)
 
-    #put the changes in a custom message type that can hold float32 type of roll, pitch, and yaw angles.
+    #put the conversions in a custom message type that can hold float32 type of roll, pitch, and yaw angles.
     message = degrees_msg()
     message.roll = roll_average
     message.pitch = pitch_average
