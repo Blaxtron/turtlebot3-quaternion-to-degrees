@@ -11,7 +11,7 @@ from turtlebot3_task.msg import degrees_msg
 roll_queue = deque(maxlen=10)
 pitch_queue = deque(maxlen=10)
 yaw_queue = deque(maxlen=10)
-pub = rospy.Publisher("rotation",degrees_msg,queue_size=10)
+pub = rospy.Publisher("conversion",degrees_msg,queue_size=10)
 
 def callback(data):
     
