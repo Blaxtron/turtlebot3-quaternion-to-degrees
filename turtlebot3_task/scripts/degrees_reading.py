@@ -17,7 +17,7 @@ def callback(data):
 
 def read():
     rospy.init_node("degree_reading",anonymous=False)
-    rospy.Subscriber("rotation",degrees_msg,callback,queue_size=10)
+    rospy.Subscriber("conversion",degrees_msg,callback,queue_size=10)
 
     rospy.spin()
 
